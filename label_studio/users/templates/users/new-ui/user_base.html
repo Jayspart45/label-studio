@@ -1,24 +1,25 @@
-{% extends 'simple.html' %}
-{% load i18n %}
-{% load static %}
-{% load filters %}
-
-
+{% extends 'simple.html' %} {% load i18n %} {% load static %} {% load filters %}
 {% block head %}
-<link rel="stylesheet" href="{{ settings.HOSTNAME }}{% static 'css/login.css' %}"/>
+<link
+  rel="stylesheet"
+  href="{{ settings.HOSTNAME }}{% static 'css/login.css' %}"
+/>
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-129877673-1"></script>
+<script
+  async
+  src="https://www.googletagmanager.com/gtag/js?id=UA-129877673-1"
+></script>
 <script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'UA-129877673-1');
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag("js", new Date());
+  gtag("config", "UA-129877673-1");
 </script>
-{% endblock %}
-
-{% block content %}
+{% endblock %} {% block content %}
 <div class="login_page_new_ui">
-  <div class="left">
+  <!-- <div class="left">
     <h2>Welcome</h2>
     <img src="{{ settings.HOSTNAME }}{% static 'images/label_studio_logo.svg' %}" height="93"  alt="Label Studio Logo"/>
     <h3>A full-fledged open source solution for data labeling</h3>
@@ -29,17 +30,33 @@ gtag('config', 'UA-129877673-1');
       Brought to you by
       <img src="{{ settings.HOSTNAME }}{% static 'images/human_signal_logo.svg' %}" height="22"  alt="Human Signal Logo"/>
     </div>
+  </div> -->
+  <div class="w-1/2 bg-gray-300 flex items-center flex-col justify-center">
+    <h1 class="text-7xl font-bold text-zinc-900 mb-8">MLloops</h1>
+    <p class="text-md tracking-tighter text-gray-600 px-10">
+      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsa nisi
+      asperiores voluptates. Deserunt omnis, iste soluta expedita nostrum id
+      fugit odio adipisci perferendis debitis? Quod incidunt fugiat quis
+      quisquam eum.
+    </p>
   </div>
-  <div class="right">
+  <div class="w-1/2 flex items-center flex-col justify-center">
     <div class="toggle">
-        {% if not settings.DISABLE_SIGNUP_WITHOUT_LINK %}
-        <a href="{{ settings.HOSTNAME }}/user/signup" class="{% if 'signup' in request.path %}active{% endif %}">Sign up</a>
-        <a href="{{ settings.HOSTNAME }}/user/login" class="{% if 'login' in request.path %}active{% endif %}">Log in</a>
-        {% endif %}
+      {% if not settings.DISABLE_SIGNUP_WITHOUT_LINK %}
+      <a
+        href="{{ settings.HOSTNAME }}/user/signup"
+        class="{% if 'signup' in request.path %}active{% endif %}"
+        >Sign up</a
+      >
+      <a
+        href="{{ settings.HOSTNAME }}/user/login"
+        class="{% if 'login' in request.path %}active{% endif %}"
+        >Log in</a
+      >
+      {% endif %}
     </div>
-    {% block user_content %}
+    {% block user_content %} {% endblock %}
   </div>
 </div>
 
-  {% endblock %}
 {% endblock %}

@@ -1,12 +1,13 @@
+/* eslint-disable no-undef */
 /* Install: npm install node-fetch
  * Run: node get-build.js [REPO] [BRANCH]
  * This script automatically takes the latest build from given repo and branch
  * and places it to label_studio/static/<REPO>
 */
 const fs = require('fs');
-const {Readable} = require("stream")
-const {finished} = require('stream/promises')
-const {spawn} = require('child_process');
+const { Readable } = require("stream")
+const { finished } = require('stream/promises')
+const { spawn } = require('child_process');
 const path = require('path');
 
 const dir = path.resolve(__dirname, 'build-tmp');
@@ -48,7 +49,7 @@ async function get(projectName, ref = 'master') {
     const commitUrl = `https://api.github.com/repos/${REPO}/git/ref/heads/${ref}`;
 
     console.info(`Fetching ${commitUrl}`);
-    res = await fetch(commitUrl, {headers: {Authorization: `token ${TOKEN}`}});
+    res = await fetch(commitUrl, { headers: { Authorization: `token ${TOKEN}` } });
     json = await res.json();
 
     if (!json || !json.object) {
@@ -69,7 +70,7 @@ async function get(projectName, ref = 'master') {
   const artifactName = `LSF-${sha}`;
   const artifactsUrl = `https://api.github.com/repos/${REPO}/actions/artifacts?name=${artifactName}`;
 
-  res = await fetch(artifactsUrl, {headers: {Authorization: `token ${TOKEN}`}});
+  res = await fetch(artifactsUrl, { headers: { Authorization: `token ${TOKEN}` } });
   json = await res.json();
 
   const artifact = json.artifacts.at(0);
@@ -79,7 +80,7 @@ async function get(projectName, ref = 'master') {
 
   console.info('Found an artifact:', buildUrl);
 
-  res = await fetch(buildUrl, {headers: {Authorization: `token ${TOKEN}`}});
+  res = await fetch(buildUrl, { headers: { Authorization: `token ${TOKEN}` } });
 
   const filename = `${dir}/${sha}.zip`;
 
@@ -102,7 +103,7 @@ async function get(projectName, ref = 'master') {
 
   const commitInfoUrl = `https://api.github.com/repos/${REPO}/git/commits/${sha}`;
 
-  res = await fetch(commitInfoUrl, {headers: {Authorization: `token ${TOKEN}`}});
+  res = await fetch(commitInfoUrl, { headers: { Authorization: `token ${TOKEN}` } });
   json = await res.json();
   const info = {
     message: json.message.split('\n')[0],
@@ -137,13 +138,13 @@ async function get(projectName, ref = 'master') {
   // move build to target folder
   var newPath = path.join(__dirname, DIST_DIR, projectName);
 
-  fs.rmdirSync(newPath, {recursive: true});
-  fs.mkdirSync(newPath, {recursive: true});
+  fs.rmdirSync(newPath, { recursive: true });
+  fs.mkdirSync(newPath, { recursive: true });
 
   fs.rename(staticPath, newPath, function (err) {
     if (err) throw err;
     console.log(`Successfully renamed - AKA moved into ${newPath}`);
-    fs.rmdirSync(dir, {recursive: true});
+    fs.rmdirSync(dir, { recursive: true });
 
     if (projectName === 'lsf') {
       console.log("Copying chunk files to the root folder");
